@@ -29,7 +29,7 @@ jobs:
 
       - name: 📄 Install CheckMake
         run: |
-          curl -sSL https://github.com/mrtazz/checkmake/releases/latest/download/checkmake-linux-amd64 -o /usr/local/bin/checkmake
+          curl -sSL https://github.com/mrtazz/checkmake/releases/download/0.2.2/checkmake-linux-amd64 -o /usr/local/bin/checkmake
           chmod +x /usr/local/bin/checkmake
 
       - name: 🔍 Check Makefile syntax
