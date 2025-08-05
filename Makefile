@@ -66,10 +66,10 @@ endif
 
 composer-require:
 ifeq ($(strip $(package)),)
-	$(error Missing package. Usage: make composer-require package=vendor/package)
+	$(error Missing package. Usage: make composer-require path=src/myapp package=vendor/package)
 endif
 ifeq ($(strip $(path)),)
-	$(error Missing path. Usage: make composer-require package=vendor/package)
+	$(error Missing path. Usage: make composer-require path=src/myapp package=vendor/package)
 endif
 	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php")  sh -c "cd $(path) && composer require $(command)"
 
