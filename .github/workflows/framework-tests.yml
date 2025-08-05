@@ -20,6 +20,12 @@ jobs:
       - name: 📂 Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: 🤖 Install Laravel if src/ is empty
+        run: |
+          if [ -z "$(ls -A src)" ]; then
+            docker run --rm -v ${{ github.workspace }}/src:/app -w /app composer create-project laravel/laravel .
+          fi
+
       - name: 🌐 Start Laravel + MySQL stack
         run: |
           cp .env.example .env
