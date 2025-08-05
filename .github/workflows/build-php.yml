@@ -32,4 +32,4 @@ jobs:
 
       - name: 🔖 Validate PHP version
         run: |
-          docker run --rm php-dev:${{ matrix.version }} php -v
+          docker run --rm --entrypoint php-dev:${{ matrix.version }} php -v
