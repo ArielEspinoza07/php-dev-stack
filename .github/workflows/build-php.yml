@@ -28,7 +28,9 @@ jobs:
 
       - name: 💪 Build php:${{ matrix.version }}
         run: |
-          docker build -t php-dev:${{ matrix.version }} docker/php/${{ matrix.version }}/Dockerfile
+          docker build -t php-dev:${{ matrix.version }} \
+          -f docker/php/${{ matrix.version }}/Dockerfile \
+          docker/php/${{ matrix.version }}
 
       - name: 🔖 Validate PHP version
         run: |
