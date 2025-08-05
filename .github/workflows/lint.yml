@@ -32,5 +32,8 @@ jobs:
           curl -sSL https://github.com/mrtazz/checkmake/releases/download/0.2.2/checkmake-linux-amd64 -o /usr/local/bin/checkmake
           chmod +x /usr/local/bin/checkmake
 
+      - name: 🧪 Debug CheckMake File
+        run: file /usr/local/bin/checkmake
+
       - name: 🔍 Check Makefile syntax
         run: checkmake Makefile
