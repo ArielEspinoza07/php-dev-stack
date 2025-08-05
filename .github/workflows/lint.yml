@@ -27,7 +27,10 @@ jobs:
         run: |
           find docker/php -name Dockerfile -exec hadolint {} \;
 
-      - name: 🔍 Check Makefile syntax
+      - name: 📄 Install CheckMake
         run: |
-          sudo apt-get install -y checkmake
-          checkmake Makefile
+          curl -sSL https://github.com/mrtazz/checkmake/releases/latest/download/checkmake-linux-amd64 -o /usr/local/bin/checkmake
+          chmod +x /usr/local/bin/checkmake
+
+      - name: 🔍 Check Makefile syntax
+        run: checkmake Makefile
