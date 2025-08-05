@@ -1,5 +1,12 @@
 include .env
 
+all: up-db
+
+clean: down
+
+test:
+	@echo "No test suite defined yet"
+
 up:
 	docker compose -f docker-compose.yml up -d --build
 
@@ -28,14 +35,10 @@ restart-mysql: down up-mysql
 restart-pgsql: down up-pgsql
 
 info:
-	@echo "🧾 Environment Info"
+	@echo "🧾 Environment Info: $(PROJECT_NAME)"
 	@echo "-------------------"
-	@echo "PROJECT_NAME: $(PROJECT_NAME)"
 	@echo "DB_CONNECTION: $(DB_CONNECTION)"
 	@echo "PHP_VERSION: $(PHP_VERSION)"
-	@echo "NODE_VERSION: $(NODE_VERSION)"
-	@echo "REDIS_VERSION: $(REDIS_VERSION)"
-	@echo "SUPERVISOR_ENABLE: $(ENABLE_SUPERVISOR)"
 	@echo "-------------------"
 
 switch-php:
