@@ -51,9 +51,7 @@ jobs:
       - name: 💪 Build PHP image (from .env)
         run: |
           PHP_VERSION=$(grep PHP_VERSION .env | cut -d '=' -f2)
-          docker build -t php-custom-test \
-          -f docker/php/$PHP_VERSION/Dockerfile \
-          docker/php/$PHP_VERSION
+          docker build -f docker/php/$PHP_VERSION/Dockerfile -t php-custom-test
 
       - name: 📄 Verify PHP version
         run: |
