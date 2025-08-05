@@ -15,7 +15,3 @@ services:
       - ./data/mysql:/var/lib/mysql
     networks:
       - app
-
-networks:
-  app:
-    external: true

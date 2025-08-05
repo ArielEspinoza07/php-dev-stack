@@ -15,7 +15,3 @@ services:
       POSTGRES_DB: ${PGSQL_DATABASE}
     networks:
       - app
-
-networks:
-  app:
-    external: true
