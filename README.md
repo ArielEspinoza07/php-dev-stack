@@ -52,7 +52,7 @@ PHP_VERSION=8.3
 ### 3. Set database engine:
 
 ```dotenv
-DB_CONNECTION=mysql  # or pgsql
+DB_CONNECTION=mysql# or pgsql
 ```
 
 ### 4. Enable a virtual host:
