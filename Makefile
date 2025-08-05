@@ -53,28 +53,43 @@ bash:
 	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php") bash
 
 composer-install:
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php") composer install
+ifeq ($(strip $(path)),)
+	$(error Missing path. Usage: make composer-install path=src/myapp)
+endif
+	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php")  sh -c "cd $(path) && composer install"
 
 composer-update:
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php") composer update
+ifeq ($(strip $(path)),)
+	$(error Missing path. Usage: make composer-update path=src/myapp)
+endif
+	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php")  sh -c "cd $(path) && composer update"
 
 composer-require:
 ifeq ($(strip $(package)),)
 	$(error Missing package. Usage: make composer-require package=vendor/package)
 endif
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php") composer require $(package)
+ifeq ($(strip $(path)),)
+	$(error Missing path. Usage: make composer-require package=vendor/package)
+endif
+	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php")  sh -c "cd $(path) && composer require $(command)"
 
 run-php-command:
 ifeq ($(strip $(command)),)
-	$(error Missing command. Usage: make run-command command=artisan migrate command=bin/console doctrine:database:create)
+	$(error Missing command. Usage: make run-php-command path=src/myapp command="artisan migrate")
 endif
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php") php $(command)
+ifeq ($(strip $(path)),)
+	$(error Missing path. Usage: make run-php-command path=src/myapp command="artisan migrate")
+endif
+	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php") sh -c "cd $(path) && php $(command)"
 
 run-npm-command:
 ifeq ($(strip $(command)),)
-	$(error Missing command. Usage: make run-npm-command command=install command=run dev)
+	$(error Missing command. Usage: make run-npm-command path=src/myapp command="run dev")
 endif
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_node") npm $(command)
+ifeq ($(strip $(path)),)
+	$(error Missing path. Usage: make run-npm-command path=src/myapp command="run dev")
+endif
+	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_node") sh -c "cd $(path) && npm $(command)"
 
 enable-site:
 	ln -sf docker/nginx/sites-available/$(site) docker/nginx/sites-enabled/$(site)
