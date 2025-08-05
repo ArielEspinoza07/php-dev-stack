@@ -45,6 +45,9 @@ jobs:
       - name: Copy environment file
         run: cp .env.example .env
 
+      - name: 🔍 Show Dockerfile being built
+        run: cat docker/php/$(grep PHP_VERSION .env | cut -d '=' -f2)/Dockerfile
+
       - name: 💪 Build PHP image (from .env)
         run: |
           PHP_VERSION=$(grep PHP_VERSION .env | cut -d '=' -f2)
