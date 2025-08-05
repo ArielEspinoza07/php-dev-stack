@@ -32,7 +32,7 @@ jobs:
           fi
 
       - name: 🔧 Run Laravel Artisan about
-        run: make run-php-command path=src/laravel-test command="artisan about"
+        run: make run-php-command project=laravel-test command="artisan about"
 
       - name: ❌ Teardown
         run: make down
@@ -60,7 +60,7 @@ jobs:
           fi
 
       - name: 🔧 Run Symfony console about
-        run: make run-php-command path=src/symfony-test command="bin/console about"
+        run: make run-php-command project=symfony-test command="bin/console about"
 
       - name: ❌ Teardown
         run: make down
