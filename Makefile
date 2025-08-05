@@ -103,4 +103,4 @@ new-site:
 	make enable-site site=$(site)
 	@echo "✅ Created and enabled site: $(site)"
 
-.PHONY: up up-mysql up-pgsql up-db down restart restart-mysql restart-pgsql switch-php logs bash composer-install composer-update composer-require run-php-command run-npm-command enable-site new-site
+.PHONY: all clean test up up-mysql up-pgsql up-db down restart restart-mysql restart-pgsql switch-php logs bash composer-install composer-update composer-require run-php-command run-npm-command enable-site new-site
