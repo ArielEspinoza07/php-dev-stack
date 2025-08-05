@@ -13,6 +13,8 @@ COPY docker/supervisor/supervisord.conf /etc/supervisord.conf
 
 COPY docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
 
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 WORKDIR /var/www/html
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
