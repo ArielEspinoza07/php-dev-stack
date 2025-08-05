@@ -35,12 +35,12 @@ jobs:
 
       - name: 📄 Verify PHP version
         run: |
-          docker run --rm --entrypoint php-custom-test php -v
+          docker run --rm --entrypoint php php-custom-test -v
 
       - name: 🔖 Check Composer version
         run: |
-          docker run --rm --entrypoint php-custom-test composer --version
+          docker run --rm --entrypoint composer php-custom-test --version
 
       - name: 📚 Check PHP extensions
         run: |
-          docker run --rm --entrypoint php-custom-test php -m
+          docker run --rm --entrypoint php php-custom-test -m
