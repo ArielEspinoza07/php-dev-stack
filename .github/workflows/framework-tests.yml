@@ -26,10 +26,7 @@ jobs:
           make up-mysql
 
       - name: 🤖 Create new Laravel App if src/ is empty
-        run: |
-          if [ -z "$(ls -A src)" ]; then
-            make composer-create-project project=laravel/laravel name=laravel-test
-          fi
+        run: make composer-create-project project=laravel/laravel name=laravel-test
 
       - name: 🔧 Run Laravel Artisan about
         run: make run-php-command project=laravel-test command="artisan about"
@@ -54,10 +51,7 @@ jobs:
           make up-pgsql
 
       - name: 🤖 Create new Symfony App if src/ is empty
-        run: |
-          if [ -z "$(ls -A src)" ]; then
-            make composer-create-project project=symfony/skeleton name=symfony-test
-          fi
+        run: make composer-create-project project=symfony/skeleton name=symfony-test
 
       - name: 🔧 Run Symfony console about
         run: make run-php-command project=symfony-test command="bin/console about"
