@@ -29,7 +29,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache-${{ env.PHP_VERSION }}
-          key: ${{ runner.os }}-php-${{ env.PHP_VERSION }}-${{ hashFiles('docker/php/${{ env.PHP_VERSION }}/Dockerfile') }}
+          key: ${{ format('{0}-php-{1}-{2}', runner.os, env.PHP_VERSION, hashFiles(format('docker/php/{0}/Dockerfile', env.PHP_VERSION)) ) }}
           restore-keys: |
             ${{ runner.os }}-php-${{ env.PHP_VERSION }}-
 
@@ -82,7 +82,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache-${{ env.PHP_VERSION }}
-          key: ${{ runner.os }}-php-${{ env.PHP_VERSION }}-${{ hashFiles('docker/php/${{ env.PHP_VERSION }}/Dockerfile') }}
+          key: ${{ format('{0}-php-{1}-{2}', runner.os, env.PHP_VERSION, hashFiles(format('docker/php/{0}/Dockerfile', env.PHP_VERSION)) ) }}
           restore-keys: |
             ${{ runner.os }}-php-${{ env.PHP_VERSION }}-
 
