@@ -23,12 +23,33 @@ jobs:
       - name: 📂 Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: 💾 Restore build cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache-${{ matrix.version }}
+          key: ${{ format('{0}-php-{1}-{2}', runner.os, matrix.version, hashFiles(format('docker/php/{0}/Dockerfile', matrix.version)) ) }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.version }}-
+
       - name: 🧪 Show build path
         run: echo "Building docker/php/${{ matrix.version }}"
 
-      - name: 💪 Build php:${{ matrix.version }}
+      - name: 💪 Build php:${{ matrix.version }} (with cache)
         run: |
-          docker build -f docker/php/${{ matrix.version }}/Dockerfile -t php-dev:${{ matrix.version }} .
+          docker buildx create --use
+          docker buildx build \
+            --tag php-dev:${{ matrix.version }} \
+            --file docker/php/${{ matrix.version }}/Dockerfile \
+            --cache-from=type=local,src=/tmp/.buildx-cache-${{ matrix.version }} \
+            --cache-to=type=local,dest=/tmp/.buildx-cache-new-${{ matrix.version }} \
+            --load \
+            .
+
+      - name: 💾 Save updated cache
+        if: always()
+        run: |
+          rm -rf /tmp/.buildx-cache-${{ matrix.version }}
+          mv /tmp/.buildx-cache-new-${{ matrix.version }} /tmp/.buildx-cache-${{ matrix.version }}
 
       - name: 🔖 Validate PHP version
         run: |
