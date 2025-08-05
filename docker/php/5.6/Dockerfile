@@ -7,8 +7,8 @@ RUN apk add --no-cache \
 
 WORKDIR /var/www/html
 
-COPY ../../supervisor/supervisord.conf /etc/supervisord.conf
+COPY docker/supervisor/supervisord.conf /etc/supervisord.conf
 
-COPY ../entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
