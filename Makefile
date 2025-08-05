@@ -59,7 +59,7 @@ composer-install:
 ifeq ($(strip $(project)),)
 	$(error Missing path. Usage: make composer-install project=myapp)
 endif
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php")  sh -c "cd /var/www/html/$(project) && composer install"
+	docker exec -i $$(docker ps -qf "name=${PROJECT_NAME}_php")  sh -c "cd /var/www/html/$(project) && composer install"
 
 composer-create-project:
 ifeq ($(strip $(project)),)
@@ -68,14 +68,14 @@ endif
 ifeq ($(strip $(name)),)
 	$(error Missing path. Usage: make composer-create-project name=laravel-test project=laravel/laravel)
 endif
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php") sh -c "cd /var/www/html && composer create-project $(project) $(name)"
+	docker exec -i $$(docker ps -qf "name=${PROJECT_NAME}_php") sh -c "cd /var/www/html && composer create-project $(project) $(name)"
 
 
 composer-update:
 ifeq ($(strip $(project)),)
 	$(error Missing path. Usage: make composer-update project=myapp)
 endif
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php")  sh -c "cd /var/www/html/$(project) && composer update"
+	docker exec -i $$(docker ps -qf "name=${PROJECT_NAME}_php")  sh -c "cd /var/www/html/$(project) && composer update"
 
 composer-require:
 ifeq ($(strip $(package)),)
@@ -84,7 +84,7 @@ endif
 ifeq ($(strip $(project)),)
 	$(error Missing path. Usage: make composer-require project=myapp package=vendor/package)
 endif
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php")  sh -c "cd /var/www/html/$(project) && composer require $(command)"
+	docker exec -i $$(docker ps -qf "name=${PROJECT_NAME}_php")  sh -c "cd /var/www/html/$(project) && composer require $(command)"
 
 run-php-command:
 ifeq ($(strip $(command)),)
@@ -93,7 +93,7 @@ endif
 ifeq ($(strip $(project)),)
 	$(error Missing path. Usage: make run-php-command project=myapp command="artisan migrate")
 endif
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_php") sh -c "cd /var/www/html/$(project) && php $(command)"
+	docker exec -i $$(docker ps -qf "name=${PROJECT_NAME}_php") sh -c "cd /var/www/html/$(project) && php $(command)"
 
 run-npm-command:
 ifeq ($(strip $(command)),)
@@ -102,7 +102,7 @@ endif
 ifeq ($(strip $(project)),)
 	$(error Missing path. Usage: make run-npm-command project=myapp command="run dev")
 endif
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_node") sh -c "cd /var/www/html/$(project) && npm $(command)"
+	docker exec -i $$(docker ps -qf "name=${PROJECT_NAME}_node") sh -c "cd /var/www/html/$(project) && npm $(command)"
 
 enable-site:
 	ln -sf docker/nginx/sites-available/$(site) docker/nginx/sites-enabled/$(site)
