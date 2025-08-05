@@ -4,7 +4,7 @@ RUN apk add --no-cache \
         bash git curl unzip icu-dev libxml2-dev libzip-dev zlib-dev oniguruma-dev \
         autoconf gcc g++ make build-base linux-headers supervisor \
     && docker-php-ext-install intl pdo pdo_mysql zip opcache mbstring xml \
-    && pecl install xdebug \
+    && pecl install xdebug-3.1.6 \
     && docker-php-ext-enable xdebug
 
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
