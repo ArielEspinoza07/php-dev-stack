@@ -9,8 +9,8 @@ on:
       - '.env*'
 
 jobs:
-  framework-tests:
-    name: 📊 Test Laravel / Symfony
+  laravel-test:
+    name: 📊 Test Laravel
     runs-on: ubuntu-latest
 
     steps:
@@ -23,18 +23,54 @@ jobs:
       - name: 🤖 Install Laravel if src/ is empty
         run: |
           if [ -z "$(ls -A src)" ]; then
-            docker run --rm -v ${{ github.workspace }}/src:/app -w /app composer create-project laravel/laravel .
+            docker run --rm \
+            -v ${{ github.workspace }}/src:/src \
+            -w /src \
+            composer create-project laravel/laravel laravel-test
           fi
 
-      - name: 🌐 Start Laravel + MySQL stack
+      - name: 💪 Build Docker environment
         run: |
           cp .env.example .env
-          make switch-php version=8.3
           make up-mysql
 
-      - name: 🔧 Run Laravel Artisan test
+      - name: 🔧 Run Laravel Artisan about
+        working-directory: src/laravel-test
         run: |
-          make run-php-command command="artisan test"
+          make run-php-command command="artisan about"
+
+      - name: ❌ Teardown
+        run: make down
+
+  symfony-test:
+    name: 📊 Test Symfony
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 💾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📂 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🤖 Install Symfony if src/ is empty
+        run: |
+          if [ -z "$(ls -A src)" ]; then
+            docker run --rm \
+            -v ${{ github.workspace }}/src:/src \
+            -w /src \
+            composer create-project symfony/skeleton symfony-test
+          fi
+
+      - name: 💪 Build Docker environment
+        run: |
+          cp .env.example .env
+          make up-pgsql
+
+      - name: 🔧 Run Symfony console about
+        working-directory: src/symfony-test
+        run: |
+          make run-php-command command="bin/console about"
 
       - name: ❌ Teardown
         run: make down
