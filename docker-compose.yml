@@ -19,7 +19,8 @@ services:
 
   php:
     build:
-      context: ./docker/php/${PHP_VERSION}
+      context: .
+      dockerfile: docker/php/${PHP_VERSION}/Dockerfile
     container_name: ${PROJECT_NAME}_php
     ports:
       - "${PHP_PORT}:9000"
