@@ -9,6 +9,10 @@ RUN apk add --no-cache \
 
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
+COPY ../../supervisor/supervisord.conf /etc/supervisord.conf
+
+COPY ../entrypoint.sh /usr/local/bin/entrypoint.sh
+
 WORKDIR /var/www/html
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
