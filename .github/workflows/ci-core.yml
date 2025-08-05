@@ -11,30 +11,6 @@ jobs:
     name: 📊 Validate Docker Environment
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.4
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
-      redis:
-        image: redis:latest
-        ports:
-          - 6379:6379
-        options: >-
-          --health-cmd="redis-cli ping"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
     steps:
       - name: 💾 Checkout code
         uses: actions/checkout@v4
@@ -52,15 +28,19 @@ jobs:
         run: |
           PHP_VERSION=$(grep PHP_VERSION .env | cut -d '=' -f2)
           docker build -f docker/php/$PHP_VERSION/Dockerfile -t php-custom-test .
+          
+      - name: 🕵️ Check entrypoint permissions
+        run: |
+          ls -l docker/php/entrypoint.sh
 
       - name: 📄 Verify PHP version
         run: |
-          docker run --rm php-custom-test php -v
+          docker run --rm --entrypoint php-custom-test php -v
 
       - name: 🔖 Check Composer version
         run: |
-          docker run --rm php-custom-test composer --version
+          docker run --rm --entrypoint php-custom-test composer --version
 
       - name: 📚 Check PHP extensions
         run: |
-          docker run --rm php-custom-test php -m
+          docker run --rm --entrypoint php-custom-test php -m
