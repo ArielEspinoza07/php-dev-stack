@@ -1,4 +1,4 @@
-include docker/.env
+include .env
 
 up:
 	docker compose -f docker-compose.yml up -d --build
@@ -43,7 +43,7 @@ ifeq ($(strip $(version)),)
 	$(error Missing version. Usage: make switch-php version=8.3)
 endif
 	@echo "Switching to PHP $(version)"
-	sed -i 's/^PHP_VERSION=.*/PHP_VERSION=$(version)/' docker/.env
+	sed -i 's/^PHP_VERSION=.*/PHP_VERSION=$(version)/' .env
 	make restart
 
 logs:
