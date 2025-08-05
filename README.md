@@ -78,24 +78,25 @@ make up-db         # Auto-detects DB from .env
 
 ## ⚙️ Useful Makefile Commands
 
-| Command                                    | Description                                  |
-|--------------------------------------------|----------------------------------------------|
-| make up                                    | Start default stack (nginx, php, redis)      |
-| make up-mysql                              | Start stack with MySQL                       |
-| make up-pgsql                              | Start stack with PostgreSQL                  |
-| make up-db                                 | Detects DB from `.env` and runs accordingly  |
-| make down                                  | Stop and remove containers                   |
-| make restart                               | Restart stack                                |
-| make switch-php version=8.2                | Change PHP version                           |
-| make logs                                  | Tail container logs                          |
-| make bash                                  | Open shell in PHP container                  |
-| make composer-install path=...             | Run composer install                         |
-| make composer-update  path=...             | Run composer update                          |
-| make composer-require path=... package=... | Install package via Composer                 |
-| make run-php-command  path=... command=... | Run any PHP CLI command                      |
-| make run-npm-command  path=... command=... | Run any npm command (install, run dev, etc.) |
-| make enable-site site=...                  | Enable virtual host                          |
-| make new-site site=...                     | Create + enable new virtual host             |
+| Command                                           | Description                                  |
+|---------------------------------------------------|----------------------------------------------|
+| make up                                           | Start default stack (nginx, php, redis)      |
+| make up-mysql                                     | Start stack with MySQL                       |
+| make up-pgsql                                     | Start stack with PostgreSQL                  |
+| make up-db                                        | Detects DB from `.env` and runs accordingly  |
+| make down                                         | Stop and remove containers                   |
+| make restart                                      | Restart stack                                |
+| make switch-php version=8.2                       | Change PHP version                           |
+| make logs                                         | Tail container logs                          |
+| make bash                                         | Open shell in PHP container                  |
+| make composer-create-project project=... name=... | Run composer install                         |
+| make composer-install project=...                 | Run composer install                         |
+| make composer-update  project=...                 | Run composer update                          |
+| make composer-require project=... package=...     | Install package via Composer                 |
+| make run-php-command  project=... command=...     | Run any PHP CLI command                      |
+| make run-npm-command  project=... command=...     | Run any npm command (install, run dev, etc.) |
+| make enable-site site=...                         | Enable virtual host                          |
+| make new-site site=...                            | Create + enable new virtual host             |
 
 ---
 
