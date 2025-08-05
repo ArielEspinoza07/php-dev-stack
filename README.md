@@ -1,6 +1,25 @@
 # 📦 PHP Dockerized Environment with Multi-Version, Multi-Framework & Virtual Host Support
 
-This repository provides a robust and flexible development setup for any PHP-based project (Laravel, Symfony, WordPress, etc.) using Docker, with full support for:
+<p>
+  <a href="https://github.com/ArielEspinoza07/php-dev-stack/actions">
+    <img src="https://github.com/ArielEspinoza07/php-dev-stack/actions/workflows/build-php.yml/badge.svg"  alt="Build - PHP images">
+  </a>
+  <a href="https://github.com/ArielEspinoza07/php-dev-stack/actions">
+    <img src="https://github.com/ArielEspinoza07/php-dev-stack/actions/workflows/ci-core.yml/badge.svg"  alt="CI - Core Validation">
+  </a>
+  <a href="https://github.com/ArielEspinoza07/php-dev-stack/actions">
+    <img src="https://github.com/ArielEspinoza07/php-dev-stack/actions/workflows/lint.yml/badge.svg"  alt="Lint - Dockerfile & Makefile">
+  </a>
+  <a href="https://github.com/ArielEspinoza07/php-dev-stack/actions">
+    <img src="https://github.com/ArielEspinoza07/php-dev-stack/actions/workflows/framework-tests.yml/badge.svg"  alt="Framework - Laravel / Symfony Test">
+  </a>
+  <a href="https://github.com/ArielEspinoza07/php-dev-stack/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
+  </a>
+</p>
+
+This repository provides a robust and flexible development setup for any PHP-based project (Laravel, Symfony, WordPress,
+etc.) using Docker, with full support for:
 
 - ✅ Multiple PHP versions (5.6, 7.4–8.3)
 - ✅ Virtual host management via `sites-available` / `sites-enabled`
@@ -140,7 +159,7 @@ For full compatibility, WSL2 is strongly recommended.
 ## 🧪 PHP Version Support
 
 | Version | Composer | Xdebug | Notes                        |
-| ------- | -------- | ------ | ---------------------------- |
+|---------|----------|--------|------------------------------|
 | 5.6     | ❌        | ❌      | Legacy, limited              |
 | 7.4     | ✅        | ✅      | Stable, supported            |
 | 8.0+    | ✅        | ✅      | Recommended for new projects |
