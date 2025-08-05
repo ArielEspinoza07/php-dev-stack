@@ -35,9 +35,7 @@ jobs:
           make up-mysql
 
       - name: 🔧 Run Laravel Artisan about
-        working-directory: src/laravel-test
-        run: |
-          make run-php-command command="artisan about"
+        run: make run-php-command path=src/laravel-test command="artisan about"
 
       - name: ❌ Teardown
         run: make down
@@ -68,9 +66,7 @@ jobs:
           make up-pgsql
 
       - name: 🔧 Run Symfony console about
-        working-directory: src/symfony-test
-        run: |
-          make run-php-command command="bin/console about"
+        run: make run-php-command path=src/symfony-test command="bin/console about"
 
       - name: ❌ Teardown
         run: make down
