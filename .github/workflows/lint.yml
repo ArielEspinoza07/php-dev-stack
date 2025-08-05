@@ -1,0 +1,33 @@
+name: Lint - Dockerfile & Makefile
+
+on:
+  pull_request:
+    paths:
+      - 'docker/**/Dockerfile'
+      - 'Makefile'
+      - '.github/workflows/lint.yml'
+  push:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: 🔍 Lint Dockerfiles & Makefile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 💾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📄 Install Hadolint
+        run: |
+          sudo wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+          sudo chmod +x /usr/local/bin/hadolint
+
+      - name: 📊 Lint Dockerfiles
+        run: |
+          find docker/php -name Dockerfile -exec hadolint {} \;
+
+      - name: 🔍 Check Makefile syntax
+        run: |
+          sudo apt-get install -y checkmake
+          checkmake Makefile

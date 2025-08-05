@@ -1,0 +1,34 @@
+name: Framework - Laravel / Symfony Test
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'docker/**'
+      - '.env*'
+
+jobs:
+  framework-tests:
+    name: 📊 Test Laravel / Symfony
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 💾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📂 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🌐 Start Laravel + MySQL stack
+        run: |
+          cp .env.example .env
+          make switch-php version=8.3
+          make up-mysql
+
+      - name: 🔧 Run Laravel Artisan test
+        run: |
+          make run-php-command command="artisan test"
+
+      - name: ❌ Teardown
+        run: make down

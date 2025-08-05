@@ -1,0 +1,32 @@
+name: Build - PHP Images
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'docker/php/**/Dockerfile'
+      - '.github/workflows/build-php.yml'
+
+jobs:
+  build-matrix:
+    name: 🏠 Build PHP Images (All Versions)
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        version: [5.6, 7.4, 8.0, 8.1, 8.2, 8.3, 8.4]
+
+    steps:
+      - name: 💾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📂 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 💪 Build php:${{ matrix.version }}
+        run: |
+          docker build -t php-dev:${{ matrix.version }} docker/php/${{ matrix.version }}
+
+      - name: 🔖 Validate PHP version
+        run: |
+          docker run --rm php-dev:${{ matrix.version }} php -v
